@@ -1,139 +1,188 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sistema Nacional de Medidas — Conversor</title>
-  <meta name="description" content="Sistema governamental para orientações e medidas de remédio" />
-  <style>
-  :root{
-    --bg:#9cd3dd;
-    --muted:#6b7280;
-    --accent:#0097b2;
-    --accent-600:#123f86;
-    --card:#fbfdff;
-    --glass: rgba(23,78,166,0.08);
-    --radius:12px;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;background:linear-gradient(180deg,#9cd3dd 0%,#9cd3dd 100%);color:#0f172a;}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sistema Nacional de Medidas — Conversor</title>
+<style>
+:root{
+  --bg:#9cd3dd;
+  --muted:#6b7280;
+  --accent:#0097b2;
+  --accent-600:#123f86;
+  --card:#fbfdff;
+  --glass: rgba(23,78,166,0.08);
+  --radius:12px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:linear-gradient(180deg,#9cd3dd 0%,#9cd3dd 100%);color:#0f172a;}
 
-  .sidebar{
-    position:fixed;left:0;top:0;bottom:0;width:260px;padding:28px 18px;display:flex;flex-direction:column;gap:18px;background:rgba(255,255,255,0.9);backdrop-filter: blur(6px);border-right:1px solid rgba(15,23,42,0.08);
-  }
-  .brand{display:flex;gap:12px;align-items:center}
-  .logo{width:56px;height:56px;border-radius:8px;}
-  .brand-text{display:flex;flex-direction:column;font-size:14px}
-  .brand-text strong{font-size:15px;color:var(--accent)}
-  .brand-text span{font-size:12px;color:var(--muted)}
-
-  .nav{display:flex;flex-direction:column;gap:8px;margin-top:8px}
-  .nav a{padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--muted);font-size:14px}
-  .nav a.active{background:var(--glass);color:var(--accent-600);font-weight:600}
-  .sidebar-footer{margin-top:auto;color:var(--muted);font-size:12px}
-
-  .content{margin-left:300px;padding:36px;min-height:100vh}
-  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-  .topbar h1{margin:0;font-size:20px}
-  .btn{padding:10px 12px;border-radius:10px;border:1px solid rgba(15,23,42,0.06);background:#fff;cursor:pointer;text-decoration:none;color:#0f172a}
-  .btn.primary{background:var(--accent);color:#fff;border:0}
-  .btn.ghost{background:transparent;border:1px solid rgba(15,23,42,0.06)}
-
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-  .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.04);border:1px solid rgba(15,23,42,0.03)}
-  .card h3{margin:0 0 6px 0}
-  .card p{margin:0 0 12px 0;color:var(--muted);font-size:14px}
-  .form-group{display:flex;flex-direction:column;margin-bottom:12px}
-  .form-group label{font-size:14px;color:var(--muted);margin-bottom:4px}
-  .form-input{padding:10px 12px;border-radius:8px;border:1px solid rgba(15,23,42,0.1);font-size:14px}
-
-  .footer{margin-top:28px;color:var(--muted);text-align:center}
-
-  @media (max-width:900px){
-    .sidebar{position:relative;width:100%;height:auto;flex-direction:row;align-items:center;padding:12px 16px}
-    .content{margin-left:0;padding:18px}
-    .brand-text{display:none}
-  }
-  </style>
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;padding:28px 18px;display:flex;flex-direction:column;gap:18px;background:rgba(255,255,255,0.9);backdrop-filter: blur(6px);border-right:1px solid rgba(15,23,42,0.08);}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:56px;height:56px;border-radius:8px;}
+.brand-text{display:flex;flex-direction:column;font-size:14px}
+.brand-text strong{font-size:15px;color:var(--accent)}
+.brand-text span{font-size:12px;color:var(--muted)}
+.nav{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.nav a{padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--muted);font-size:14px}
+.nav a.active{background:var(--glass);color:var(--accent-600);font-weight:600}
+.sidebar-footer{margin-top:auto;color:var(--muted);font-size:12px}
+.content{margin-left:300px;padding:36px;min-height:100vh}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.topbar h1{margin:0;font-size:20px}
+.btn{padding:10px 12px;border-radius:10px;border:1px solid rgba(15,23,42,0.06);background:#fff;cursor:pointer;text-decoration:none;color:#0f172a}
+.btn.primary{background:var(--accent);color:#fff;border:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.04);border:1px solid rgba(15,23,42,0.03)}
+.card h3{margin:0 0 6px 0}
+.card p{margin:0 0 12px 0;color:var(--muted);font-size:14px}
+.form-group{display:flex;flex-direction:column;margin-bottom:12px}
+.form-group label{font-size:14px;color:var(--muted);margin-bottom:4px}
+.form-input, select{padding:10px 12px;border-radius:8px;border:1px solid rgba(15,23,42,0.1);font-size:14px}
+.footer{margin-top:28px;color:var(--muted);text-align:center}
+@media (max-width:900px){
+  .sidebar{position:relative;width:100%;height:auto;flex-direction:row;align-items:center;padding:12px 16px}
+  .content{margin-left:0;padding:18px}
+  .brand-text{display:none}
+}
+</style>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="brand">
-      <svg class="logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="2" width="60" height="60" rx="8" fill="#174ea6" />
-        <g transform="translate(8,8) scale(0.75)" fill="#fff">
-          <path d="M28 4c-6.6 0-12 5.4-12 12v8H10v6h6v18h8V30h8v18h8V30h6v-6h-6v-8c0-6.6-5.4-12-12-12z"/>
-        </g>
-      </svg>
-      <div class="brand-text">
-        <strong>Sistema Nacional</strong>
-        <span>Medidas de Medicamento</span>
-      </div>
+
+<aside class="sidebar">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="60" height="60" rx="8" fill="#174ea6" />
+      <g transform="translate(8,8) scale(0.75)" fill="#fff">
+        <path d="M28 4c-6.6 0-12 5.4-12 12v8H10v6h6v18h8V30h8v18h8V30h6v-6h-6v-8c0-6.6-5.4-12-12-12z"/>
+      </g>
+    </svg>
+    <div class="brand-text">
+      <strong>Sistema Nacional</strong>
+      <span>Medidas de Medicamento</span>
     </div>
+  </div>
 
-    <nav class="nav">
-      <a href="perfil.html">Usuario</a>
-      <a class="active" href="#">Conversor</a>
-      <a href="historico.html">Historico</a>
-    </nav>
+  <nav class="nav">
+    <a href="perfil.html">Usuario</a>
+    <a class="active" href="#">Conversor</a>
+    <a href="historico.html">Historico</a>
+  </nav>
 
-    <div class="sidebar-footer">
-      <small>Versão 1.0 • Governo</small>
+  <div class="sidebar-footer">
+    <small>Versão 1.0 • Governo</small>
+  </div>
+</aside>
+
+<main class="content">
+<header class="topbar">
+  <h1>Conversor de Medidas</h1>
+</header>
+
+<section class="cards">
+
+  <!-- Campos comuns -->
+  <article class="card">
+    <h3>Informações do Paciente e Medicamento</h3>
+    <div class="form-group">
+      <label for="paciente">Nome do Paciente:</label>
+      <input type="text" id="paciente" class="form-input" placeholder="Digite o nome do paciente">
     </div>
-  </aside>
+    <div class="form-group">
+      <label for="medicamento">Nome do Medicamento:</label>
+      <input type="text" id="medicamento" class="form-input" placeholder="Digite o nome do medicamento">
+    </div>
+  </article>
 
-  <main class="content">
-    <header class="topbar">
-      <h1>Conversor de Medidas</h1>
-      <div class="top-actions">
-        <button class="btn">Registrar</button>
-        <button class="btn">Logar</button>
-      </div>
-    </header>
+  <!-- Escolha do tipo de cálculo -->
+  <article class="card">
+    <h3>Escolha o tipo de cálculo</h3>
+    <div class="form-group">
+      <label for="tipo_calc">Tipo:</label>
+      <select id="tipo_calc" class="form-input" onchange="mostrarFormulario()">
+        <option value="conversao">Conversão de Medidas</option>
+        <option value="diluicao">Cálculo de Diluição</option>
+      </select>
+    </div>
+  </article>
 
-    <section class="cards">
-      <article class="card">
-        <h3>Calculadora</h3>
-        <p>Preencha os campos para converter as medidas.</p>
-        <div class="form-group">
-          <label for="paciente">Nome do paciente:</label>
-          <input type="text" id="paciente" placeholder="Digite algo" class="form-input">
-        </div>
-        <div class="form-group">
-          <label for="medicamento">Nome do Medicamento:</label>
-          <input type="text" id="medicamento" placeholder="Digite algo" class="form-input">
-        </div>
-        <div class="form-group">
-          <label for="forma_adm">Forma de Administração:</label>
-          <select id="forma_adm" class="form-input">
-            <option value="oral">Oral</option>
-            <option value="intramuscular">Intramuscular</option>
-            <option value="intravenoso">Intravenoso</option>
-            <option value="subcutaneo">Subcutâneo</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="quantidade">Quantidade:</label>
-          <input type="number" id="quantidade" placeholder="0" class="form-input">
-        </div>
-        <div class="form-group">
-          <label for="medida">Medida:</label>
-          <select id="medida" class="form-input">
-            <option value="mg">mg</option>
-            <option value="g">g</option>
-            <option value="ml">ml</option>
-            <option value="ug">ug</option>
-          </select>
-        </div>
-        <button class="btn primary">Calcular</button>
-      </article>
+  <!-- Formulário Conversão de Medidas -->
+  <article class="card" id="form-conversao">
+    <h3>Conversão de Medidas</h3>
+    <div class="form-group">
+      <label for="concentracao">Concentração:</label>
+      <input type="number" id="concentracao" class="form-input" placeholder="Ex: 250">
+    </div>
+    <div class="form-group">
+      <label for="unidade_conc">Unidade da Concentração:</label>
+      <select id="unidade_conc" class="form-input">
+        <option value="mg/ml">mg/mL</option>
+        <option value="g/ml">g/mL</option>
+        <option value="ug/ml">µg/mL</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="prescricao">Prescrição Médica:</label>
+      <input type="number" id="prescricao" class="form-input" placeholder="Ex: 10">
+    </div>
+    <div class="form-group">
+      <label for="unidade_presc">Unidade da Prescrição:</label>
+      <select id="unidade_presc" class="form-input">
+        <option value="mg">mg</option>
+        <option value="g">g</option>
+        <option value="ml">mL</option>
+        <option value="ug">µg</option>
+      </select>
+    </div>
+    <button class="btn primary">Calcular</button>
+  </article>
 
-      <article class="card">
-        <h3>Resultado</h3>
-        <p>A conversão será exibida aqui.</p>
-      </article>
+  <!-- Formulário Cálculo de Diluição -->
+  <article class="card" id="form-diluicao" style="display:none;">
+    <h3>Cálculo de Diluição</h3>
+    <div class="form-group">
+      <label for="dilu_conc">Concentração:</label>
+      <input type="number" id="dilu_conc" class="form-input" placeholder="Ex: 250">
+    </div>
+    <div class="form-group">
+      <label for="dilu_unidade_conc">Unidade da Concentração:</label>
+      <select id="dilu_unidade_conc" class="form-input">
+        <option value="mg/ml">mg/mL</option>
+        <option value="g/ml">g/mL</option>
+        <option value="ug/ml">µg/mL</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="dilu_presc">Prescrição Médica:</label>
+      <input type="number" id="dilu_presc" class="form-input" placeholder="Ex: 10">
+    </div>
+    <div class="form-group">
+      <label for="dilu_unidade_presc">Unidade da Prescrição:</label>
+      <select id="dilu_unidade_presc" class="form-input">
+        <option value="mg">mg</option>
+        <option value="g">g</option>
+        <option value="ml">mL</option>
+        <option value="ug">µg</option>
+      </select>
+    </div>
+    <button class="btn primary">Calcular</button>
+  </article>
 
-  </main>
+</section>
+
+<footer class="footer">
+  <small>© Ministério da Saúde — Sistema Nacional de Medidas • Dados públicos</small>
+</footer>
+
+<script>
+function mostrarFormulario() {
+  const tipo = document.getElementById('tipo_calc').value;
+  document.getElementById('form-conversao').style.display = tipo === 'conversao' ? 'block' : 'none';
+  document.getElementById('form-diluicao').style.display = tipo === 'diluicao' ? 'block' : 'none';
+}
+</script>
+
+</main>
 </body>
 </html>
