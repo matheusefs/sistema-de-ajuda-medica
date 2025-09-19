@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+</head>
+
+<body>
+    <div class="container">
+        <form id="formCadastro" action="" method="POST">
+            <h1>Cadastro</h1>
+            <div class="input-grup">
+                <label for="nome">Nome *</label>
+                <input id="nome" name="nome" type="text" placeholder="Digite seu nome:"/>
+            </div>
+            <div class="input-grup">
+                <label for="email">E‑mail *</label>
+                <input id="email" name="email" type="email" placeholder="Digite seu e-mail:"/>
+            </div>
+            <div class="input-grup">
+                <label for="senha">Senha *</label>
+                <input id="senha" name="senha" type="password" minlength="8" placeholder="Crie uma senha" />
+            </div>
+            <div class="input-grup">
+                <label for="confirma">Confirmar senha *</label>
+                <input id="confirma" name="confirma" type="password" placeholder="Confirme sua senha" />
+            </div>
+            <div class="botoes">
+                <button id="limpar">LIMPAR</button>
+                <button id="criar">CRIAR</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
