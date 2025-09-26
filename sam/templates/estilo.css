@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
+
+* { /* aplica as regras a todos os elementos da página */
+    padding: 0; /* Remove o espaçamento interno */
+    margin: 0; /* Remove o espaçamento externo */
+    box-sizing: border-box; /* faz com que a largura e a altura de um elemento incluam o padding e a border, tornando o cálculo de tamanhos muito mais fácil e previsível */
+    font-family: 'Roboto Mono', monospace; /* Define a fonte para toda a página*/
+}
+
+body {
+    background-color: #9cd3dd;
+    /* centralizam o conteúdo */
+    display: flex; 
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    min-height: 100vh; /* Garante que o body tenha pelo menos 100% da altura da tela */
+}
+
+.container {
+    background-color: #ededed; /* Cor de fundo da caixa */
+    border-radius: 10px; /* Arredonda as bordas */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
+    padding: 1.5rem; /* Adiciona um espaçamento interno */
+    width: 500px; /* Define a largura fixa da caixa */
+    margin: 21px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.linha {
+    margin-bottom: 1.2rem; /* Espaçamento na parte inferior da linha */
+  }
+
+.input-grup {
+    /* Alinha os rótulos e campos verticalmente, um abaixo do outro: */
+    display: flex; 
+    flex-direction: column; 
+    margin-bottom: 1.2rem; /* Espaçamento na parte inferior do grupo */
+}
+
+.input-grup label {
+  margin-bottom: 0.4rem;
+  font-weight: bold; /* Deixa o texto em negrito */
+}
+
+select,
+input { /*  Estiliza os menus suspensos e os campos de texto */
+  padding: 0.8rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  background-color: #ffffff;
+}
+
+button {
+  background-color: #0097b2;
+  border-radius: 5px;
+  border: none;
+  color: #100f0f;
+  cursor: pointer; /* Muda a forma do mouse para uma mão ao passar por cima do botão, indicando que é clicável */
+  font-size: 1rem;
+  padding: 0.7rem 1.2rem;
+  opacity: 0.7;
+  transition: 0.5s; /* Faz com que a mudança de opacity (na linha abaixo) seja suave, durando 0.5 segundos. */
+  margin-left: auto; 
+  display: block;
+}
+
+button:hover { /* */
+  opacity: 1;
+}
+
+.icone {
+  text-align: center;
+  margin-bottom: 30px; /* Adiciona o espaçamento abaixo do ícone */
+  margin-top: 20px;
+}
+
+/* Você pode remover as propriedades de centralização da classe do ícone */
+.icone_usuario {
+  font-size: 50px;
+  color: #333;
+    /* Remova display e margin daqui */
+}
+
+.link_cadastro {
+  font-size: 10px;
+}
+
+.botao_link {
+  display: flex;
+  justify-content: space-between; /* Empurra os itens para as extremidades */
+  align-items: center; /* Alinha os itens verticalmente ao centro */
+  margin-top: 20px; /* Adiciona um espaço para separar dos inputs acima */
+}
+
+.botoes {
+  display: flex;
+  margin-top: 20px; /* Adiciona um espaço para separar dos inputs acima */
+}
