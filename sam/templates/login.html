@@ -9,19 +9,19 @@
 </head>
 <body>
     <div class="container">
-        <div class="icone">
-            <i class="fas fa-user icone_usuario"></i>
-        </div>
-        
-        <div class="input-grup">
-            <label for="email_inserido">E-mail:</label>
-            <input type="email" id="user_inserido" name="user_inserido" placeholder="e-mail:">
-        </div>
-
-        <div class="input-grup">
-            <label for="senha_inserido">Senha:</label>
-            <input type="text" id="senha_inserido" name="senha_inserido" placeholder="senha:">
-        </div>
+        <form method="POST">
+            {{ form.csrf_token }}
+    
+                {{ form.email.label() }}
+                {{ form.email() }}
+    
+                {{ form.senha.label() }}
+                {{ form.senha() }}
+    
+                {{ form.botao_confirmacao }}
+    
+                
+        </form>
         <div class="botao_link">
             <p class="link_cadastro">
                 Não possui uma conta? <a href="cadastro.html">Clique aqui</a>

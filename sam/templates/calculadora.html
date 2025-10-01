@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Conversor de Unidades</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <p>{{ form.valor.label }} {{ form.valor() }}</p>
+    <p>{{ form.unidade_origem.label }} {{ form.unidade_origem() }}</p>
+    <p>{{ form.unidade_destino.label }} {{ form.unidade_destino() }}</p>
+    <p>{{ form.botao_confirmacao() }}</p>
+</form>
+
+<h3>Histórico</h3>
+<ul>
+    {% for h in historicos %}
+        <li>{{ h.valor_origem }} {{ h.unidade_origem }} → {{ h.valor_convertido }} {{ h.unidade_destino }} ({{ h.data.strftime('%d/%m/%Y %H:%M') }})</li>
+    {% else %}
+        <li>Nenhuma conversão ainda.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
