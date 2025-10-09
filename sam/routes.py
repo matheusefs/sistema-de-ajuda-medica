@@ -1,6 +1,6 @@
 from flask import render_template, url_for, redirect
 from sam import app, database, bcrypt
-from sam.models import Usuario, Medicamento, Historico
+from sam.models import Usuario, Medicamento, Historico, Paciente
 from flask_login import login_required, login_user, logout_user, current_user
 from sam.forms import FormLogin, FormCadastro, FormConversao
 from werkzeug.utils import secure_filename
@@ -32,25 +32,46 @@ def cadastro():
 @app.route("/calculadora", methods=["GET", "POST"])
 def calculadora():
     form_calculadora = FormConversao()
+    
+    pacientes = Paciente.query.all()
+    form_calculadora.id_paciente.choices = [(p.id, f"{p.nome} - CPF: {p.cpf}") for p in pacientes]
+    
+    medicamentos = Medicamento.query.all()
+    form_calculadora.id_medicamento.choices = [(m.id, m.nome) for m in medicamentos]
+    
+    resultado = None
     historicos = Historico.query.filter_by(usuario_id=current_user.id).order_by(Historico.data_adm.desc()).all()
-
+    
     if form_calculadora.validate_on_submit():
         valor = form_calculadora.valor.data
         origem = form_calculadora.unidade_origem.data
         destino = form_calculadora.unidade_destino.data
+        data_adm = form_calculadora.data_adm.data
+        lote = form_calculadora.lote.data
+        forma_adm = form_calculadora.forma_adm.data
+        paciente_id = form_calculadora.id_paciente.data
+        medicamento_id = form_calculadora.id_medicamento.data
+
         convertido = converter_unidades(valor, origem, destino)
 
         if convertido is not None:
-            historicos = Historico(
+            novo_historico = Historico(
                 unidade_origem = origem,
                 unidade_destino = destino,
                 valor_origem = valor,
                 valor_convertido = convertido,
-                usuario_id = current_user.id
+                usuario_id = current_user.id,
+                paciente_id = paciente_id,
+                data_adm = data_adm,
+                medicamento_id = medicamento_id,
+                lote = lote,
+                forma_adm = forma_adm
             )
-            database.session.add(historicos)
+            
+            database.session.add(novo_historico)
             database.session.commit()
 
-            return redirect(url_for("calculadora"))
-        
-    return render_template("calculadora.html", form=form_calculadora, historicos = historicos)
+            resultado = convertido
+            historicos = Historico.query.filter_by(usuario_id=current_user.id).order_by(Historico.data_adm.desc()).all()
+
+    return render_template("calculadora.html", form=form_calculadora, resultado=resultado, historicos = historicos)

@@ -9,19 +9,49 @@
     <h2>Conversor de Unidades</h2>
 <form method="POST">
     {{ form.hidden_tag() }}
-    <p>{{ form.valor.label }} {{ form.valor() }}</p>
-    <p>{{ form.unidade_origem.label }} {{ form.unidade_origem() }}</p>
-    <p>{{ form.unidade_destino.label }} {{ form.unidade_destino() }}</p>
-    <p>{{ form.botao_confirmacao() }}</p>
+
+    
+    {{ form.valor.label }} {{ form.valor() }} <br>
+    {{ form.unidade_origem.label }} {{ form.unidade_origem() }} <br>
+    {{ form.unidade_destino.label }} {{ form.unidade_destino() }} <br>
+    {{ form.data_adm.label }} {{ form.data_adm() }} <br>
+    {{ form.id_medicamento.label }} {{ form.id_medicamento() }}<br>
+    {{ form.lote.label }} {{ form.lote() }} <br>
+    {{ form.forma_adm.label }} {{ form.forma_adm() }} <br>
+    {{ form.id_paciente.label }} {{ form.id_paciente() }} <br>
+    {{ form.botao_confirmacao() }}
+
 </form>
 
+<h2>Resultado</h2>
+{% if resultado %}
+<p>Resultado da conversão: {{ resultado }} {{ form.unidade_destino.data }}</p>
+{% endif %}
+
 <h3>Histórico</h3>
-<ul>
-    {% for h in historicos %}
-        <li>{{ h.valor_origem }} {{ h.unidade_origem }} → {{ h.valor_convertido }} {{ h.unidade_destino }} ({{ h.data.strftime('%d/%m/%Y %H:%M') }})</li>
-    {% else %}
-        <li>Nenhuma conversão ainda.</li>
-    {% endfor %}
-</ul>
+<table>
+  <tr>
+    <th>Data</th>
+    <th>Paciente</th>
+    <th>Medicamento</th>
+    <th>Valor Original</th>
+    <th>Valor Convertido</th>
+    <th>Unidade Origem</th>
+    <th>Unidade Destino</th>
+  </tr>
+  {% for h in historicos %}
+  <tr>
+    <td>{{ h.data_adm.strftime('%d/%m/%Y') }}</td>
+    <td>{{ h.paciente.nome }}</td>
+    <td>{{ h.medicamento.nome }}</td>
+    <td>{{ h.valor_origem }}</td>
+    <td>{{ h.valor_convertido }}</td>
+    <td>{{ h.unidade_origem }}</td>
+    <td>{{ h.unidade_destino }}</td>
+  </tr>
+  {% else %}
+  <tr><td colspan="7">Nenhum histórico encontrado</td></tr>
+  {% endfor %}
+</table>
 </body>
 </html>
