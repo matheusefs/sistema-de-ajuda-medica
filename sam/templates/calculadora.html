@@ -1,57 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Conversão de Doses</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <h2>Conversor de Unidades</h2>
-<form method="POST">
-    {{ form.hidden_tag() }}
+    <header>
+        <h1>Calculadora de Conversão de Doses</h1>
+    </header>
 
-    
-    {{ form.valor.label }} {{ form.valor() }} <br>
-    {{ form.unidade_origem.label }} {{ form.unidade_origem() }} <br>
-    {{ form.unidade_destino.label }} {{ form.unidade_destino() }} <br>
-    {{ form.data_adm.label }} {{ form.data_adm() }} <br>
-    {{ form.id_medicamento.label }} {{ form.id_medicamento() }}<br>
-    {{ form.lote.label }} {{ form.lote() }} <br>
-    {{ form.forma_adm.label }} {{ form.forma_adm() }} <br>
-    {{ form.id_paciente.label }} {{ form.id_paciente() }} <br>
-    {{ form.botao_confirmacao() }}
+    <main class="container">
 
-</form>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
 
-<h2>Resultado</h2>
-{% if resultado %}
-<p>Resultado da conversão: {{ resultado }} {{ form.unidade_destino.data }}</p>
-{% endif %}
+        
+        <section class="panel">
+            <h2>Realizar Conversão</h2>
+            <form method="POST" class="formulario">
+                {{ form.hidden_tag() }}
 
-<h3>Histórico</h3>
-<table>
-  <tr>
-    <th>Data</th>
-    <th>Paciente</th>
-    <th>Medicamento</th>
-    <th>Valor Original</th>
-    <th>Valor Convertido</th>
-    <th>Unidade Origem</th>
-    <th>Unidade Destino</th>
-  </tr>
-  {% for h in historicos %}
-  <tr>
-    <td>{{ h.data_adm.strftime('%d/%m/%Y') }}</td>
-    <td>{{ h.paciente.nome }}</td>
-    <td>{{ h.medicamento.nome }}</td>
-    <td>{{ h.valor_origem }}</td>
-    <td>{{ h.valor_convertido }}</td>
-    <td>{{ h.unidade_origem }}</td>
-    <td>{{ h.unidade_destino }}</td>
-  </tr>
-  {% else %}
-  <tr><td colspan="7">Nenhum histórico encontrado</td></tr>
-  {% endfor %}
-</table>
+                <div class="campo">
+                    {{ form.valor.label }}<br>
+                    {{ form.valor(class="input") }}
+                </div>
+
+                <div class="campo-duplo">
+                    <div>
+                        {{ form.unidade_origem.label }}<br>
+                        {{ form.unidade_origem(class="input") }}
+                    </div>
+                    <div>
+                        {{ form.unidade_destino.label }}<br>
+                        {{ form.unidade_destino(class="input") }}
+                    </div>
+                </div>
+
+                <div class="campo">
+                    {{ form.id_paciente.label }}<br>
+                    {{ form.id_paciente(class="input") }}
+                </div>
+
+                <div class="campo">
+                    {{ form.id_medicamento.label }}<br>
+                    {{ form.id_medicamento(class="input") }}
+                </div>
+
+                <div class="campo">
+                    {{ form.data_adm.label }}<br>
+                    {{ form.data_adm(class="input") }}
+                </div>
+
+                <div class="campo">
+                    {{ form.lote.label }}<br>
+                    {{ form.lote(class="input") }}
+                </div>
+
+                <div class="campo">
+                    {{ form.forma_adm.label }}<br>
+                    {{ form.forma_adm(class="input") }}
+                </div>
+
+                <div class="botao">
+                    {{ form.botao_confirmacao(class="btn") }}
+                </div>
+            </form>
+        </section>
+
+        
+        {% if resultado %}
+        <section class="panel resultado">
+            <h2>Resultado da Conversão</h2>
+            <p class="valor">{{ resultado }} <span>({{ form.unidade_destino.data }})</span></p>
+        </section>
+        {% endif %}
+
+        
+        <section class="panel historico">
+            <h2>Histórico de Conversões</h2>
+            {% if historicos %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Medicamento</th>
+                        <th>Data</th>
+                        <th>Valor</th>
+                        <th>Resultado</th>
+                        <th>Forma</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for h in historicos %}
+                    <tr>
+                        <td>{{ h.paciente.nome }}</td>
+                        <td>{{ h.medicamento.nome }}</td>
+                        <td>{{ h.data_adm.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ h.valor_origem }} {{ h.unidade_origem }}</td>
+                        <td>{{ h.valor_convertido }} {{ h.unidade_destino }}</td>
+                        <td>{{ h.forma_adm }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Nenhuma conversão realizada ainda.</p>
+            {% endif %}
+        </section>
+
+    </main>
 </body>
 </html>

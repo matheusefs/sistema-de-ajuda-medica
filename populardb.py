@@ -2,7 +2,7 @@ from sam import database, app
 from sam.models import Paciente, Medicamento
 
 with app.app_context():
-    # --- Pacientes ---
+    #Pacientes
     pacientes = [
         Paciente(nome="João Silva", cpf="123.456.789-00"),
         Paciente(nome="Maria Oliveira", cpf="987.654.321-00"),
@@ -12,7 +12,7 @@ with app.app_context():
     ]
     database.session.add_all(pacientes)
 
-    # --- Medicamentos ---
+    #Medicamentos
     medicamentos = [
         Medicamento(nome="Paracetamol"),
         Medicamento(nome="Ibuprofeno"),
@@ -22,7 +22,6 @@ with app.app_context():
     ]
     database.session.add_all(medicamentos)
 
-    # Salva tudo no banco
     database.session.commit()
 
-    print("✅ Dados inseridos com sucesso!")
+    print("Dados inseridos com sucesso!")

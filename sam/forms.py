@@ -6,7 +6,7 @@ from sam.models import Usuario
 
 class FormLogin(FlaskForm):
     email = StringField("E-mail", validators=[DataRequired(), Email()])
-    senha = StringField("Senha", validators=[DataRequired()])
+    senha = PasswordField("Senha", validators=[DataRequired()])
     botao_confirmacao = SubmitField("Fazer login")
 
 class FormCadastro(FlaskForm):

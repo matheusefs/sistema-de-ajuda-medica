@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --cor1: #0396A6;
+  --cor2: #04BFBF;
+  --cor3: #A7F2F2;
+  --cor4: #F2785C;
+  --cor5: #D94343;
+  --fundo: #f9ffff;
+  --texto: #033;
+}
+
+
+body {
+  font-family: "Roboto Condensed", sans-serif;
+  background: var(--cor3);
+  color: var(--texto);
+  margin: 0;
+  padding: 0;
+}
+
+.login-body {
+    background: linear-gradient(135deg, var(--cor3) 0%, var(--cor2) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.login-container {
+    background-color: white;
+    width: 380px;
+    padding: 2rem 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.login-titulo {
+    color: var(--cor1);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+}
+
+.campo-login {
+    margin-bottom: 1.2rem;
+    text-align: left;
+}
+
+.label-login {
+    color: var(--cor1);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.input-login {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 2px solid var(--cor3);
+    font-size: 1rem;
+    transition: 0.3s;
+    font-family: "Roboto Condensed", sans-serif;
+    color: var(--texto);
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.input-login:focus {
+    border-color: var(--cor2);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(4,191,191,0.2);
+}
+
+.btn-login {
+    width: 100%;
+    background-color: var(--cor2);
+    color: white;
+    border: none;
+    padding: 12px 0;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.btn-login:hover {
+    background-color: var(--cor1);
+}
+
+.link-area {
+    margin-top: 1rem;
+}
+
+.link-cadastro {
+    color: var(--cor4);
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.link-cadastro:hover {
+    color: var(--cor5);
+}
+
+
+header {
+  background: var(--cor1);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 4px solid var(--cor2);
+}
+
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.panel {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(3, 150, 166, 0.2);
+  border-left: 6px solid var(--cor2);
+}
+
+.panel h2 {
+  color: var(--cor1);
+  margin-bottom: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.formulario .campo {
+  margin-bottom: 15px;
+}
+
+.campo-duplo {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--cor2);
+  outline: none;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.input:focus {
+  border-color: var(--cor1);
+  box-shadow: 0 0 5px var(--cor2);
+}
+
+.btn {
+  background: var(--cor2);
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.btn:hover {
+  background: var(--cor1);
+}
+
+.alert {
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.alert.success {
+  background: var(--cor3);
+  color: var(--texto);
+}
+
+.alert.danger {
+  background: var(--cor5);
+  color: white;
+}
+
+.resultado .valor {
+  font-size: 1.8rem;
+  color: var(--cor1);
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+}
+
+.resultado span {
+  font-size: 1rem;
+  color: var(--texto);
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th {
+  background: var(--cor1);
+  color: white;
+  padding: 8px;
+  font-family: "Montserrat", sans-serif;
+}
+
+table td {
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+table tr:hover {
+  background: var(--cor3);
+}

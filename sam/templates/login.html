@@ -3,33 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login do Conversor de Medidas</title>
-    <link rel="stylesheet" href="estilo.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Login - Conversor de Doses</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
-<body>
-    <div class="container">
-        <form method="POST">
-            {{ form.csrf_token }}
-    
-                {{ form.email.label() }}
-                {{ form.email() }}
-    
-                {{ form.senha.label() }}
-                {{ form.senha() }}
-    
-                {{ form.botao_confirmacao }}
-    
-                
+<body class="login-body">
+    <div class="login-container">
+        <h1 class="login-titulo">Conversor de Doses</h1>
+        <form method="POST" class="login-form">
+            {{ form.hidden_tag() }}
+
+            <div class="campo-login">
+                {{ form.email.label(class="label-login") }}
+                {{ form.email(class="input-login") }}
+            </div>
+
+            <div class="campo-login">
+                {{ form.senha.label(class="label-login") }}
+                {{ form.senha(class="input-login") }}
+            </div>
+
+            <div class="campo-login botao-login">
+                {{ form.botao_confirmacao(class="btn-login") }}
+            </div>
         </form>
-        <div class="botao_link">
-            <p class="link_cadastro">
-                Não possui uma conta? <a href="cadastro.html">Clique aqui</a>
-            </p>
-    
-            <button id="entrar-btn">ENTRAR</button>
+
+        <div class="link-area">
+            <p>Não possui uma conta?</p>
+            <a href="{{ url_for('cadastro') }}" class="link-cadastro">Clique aqui</a>
         </div>
     </div>
-    
 </body>
 </html>

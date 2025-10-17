@@ -3,32 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="estilo.css">
+    <title>Cadastro - Conversor de Doses</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
-</head>
+<body class="login-body">
+    <div class="login-container">
+        <h1 class="login-titulo"><i class="fa-solid fa-pills"></i> Cadastro</h1>
 
-<body>
-    <div class="container">
-        <form method="POST">
-            {{ form.csrf_token }}
-    
-                {{ form.email.label() }}
-                {{ form.email() }}
-    
-                {{ form.nome.label() }}
-                {{ form.nome() }}
-    
-                {{ form.senha.label() }}
-                {{ form.senha() }}
-    
-                {{ form.confirmacao_senha.label() }}
-                {{ form.confirmacao_senha() }}
-    
-                {{ form.botao_confirmacao }}
-    
+        <form method="POST" class="login-form">
+            {{ form.hidden_tag() }}
+
+            <div class="campo-login">
+                {{ form.nome.label(class="label-login") }}
+                {{ form.nome(class="input-login") }}
+            </div>
+
+            <div class="campo-login">
+                {{ form.email.label(class="label-login") }}
+                {{ form.email(class="input-login") }}
+            </div>
+
+            <div class="campo-login">
+                {{ form.senha.label(class="label-login") }}
+                {{ form.senha(class="input-login") }}
+            </div>
+
+            <div class="campo-login">
+                {{ form.confirmacao_senha.label(class="label-login") }}
+                {{ form.confirmacao_senha(class="input-login") }}
+            </div>
+
+            <div class="campo-login botao-login">
+                {{ form.botao_confirmacao(class="btn-login") }}
+            </div>
         </form>
-    </div>
 
+        <div class="link-area">
+            <p>Já possui uma conta?</p>
+            <a href="{{ url_for('homepage') }}" class="link-cadastro">Clique aqui para entrar</a>
+        </div>
+    </div>
 </body>
 </html>

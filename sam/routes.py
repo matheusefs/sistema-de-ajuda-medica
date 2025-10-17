@@ -1,10 +1,10 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, flash
 from sam import app, database, bcrypt
 from sam.models import Usuario, Medicamento, Historico, Paciente
 from flask_login import login_required, login_user, logout_user, current_user
 from sam.forms import FormLogin, FormCadastro, FormConversao
 from werkzeug.utils import secure_filename
-from sam.utils import converter_unidades
+from sam.utils import converter_unidades, para_mg
 import os
 
 @app.route("/", methods=["GET", "POST"])
@@ -55,6 +55,14 @@ def calculadora():
         convertido = converter_unidades(valor, origem, destino)
 
         if convertido is not None:
+            dose_mg = para_mg(convertido, destino)
+            limite_seguro_mg = 4000
+
+            if dose_mg > limite_seguro_mg:
+                flash(f"Atenção ⚠️: A dose convertida ({dose_mg:.2f} mg) ultrapassa o limite seguro de {limite_seguro_mg} mg!", "danger")
+            else:
+                flash(f"Dose dentro do limite seguro ({dose_mg:.2f} mg).", "success")
+
             novo_historico = Historico(
                 unidade_origem = origem,
                 unidade_destino = destino,
