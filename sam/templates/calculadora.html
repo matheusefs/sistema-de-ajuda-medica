@@ -8,11 +8,12 @@
 </head>
 <body>
     <header>
-        <h1>Calculadora de Conversão de Doses</h1>
+        <h1>SAM</h1>
     </header>
 
+    <h2 class="campo">
+        <a href="{{ url_for('homepage') }}">LOGOUT</a></h2>
     <main class="container">
-
         
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -24,26 +25,29 @@
 
         
         <section class="panel">
-            <h2>Realizar Conversão</h2>
+            <h2>Conversão de Dosagem</h2>
             <form method="POST" class="formulario">
                 {{ form.hidden_tag() }}
 
                 <div class="campo">
-                    {{ form.valor.label }}<br>
-                    {{ form.valor(class="input") }}
+                    {{ form.valor(class="input", placeholder=form.valor.label.text) }}
                 </div>
 
                 <div class="campo-duplo">
-                    <div>
+                    <div class="campo">
                         {{ form.unidade_origem.label }}<br>
                         {{ form.unidade_origem(class="input") }}
                     </div>
-                    <div>
+                    <div class="campo">
                         {{ form.unidade_destino.label }}<br>
                         {{ form.unidade_destino(class="input") }}
                     </div>
                 </div>
-
+                
+                <div class="resultado">
+                    <span>Resultado da Conversão</span>
+                    
+                </div>
                 <div class="campo">
                     {{ form.id_paciente.label }}<br>
                     {{ form.id_paciente(class="input") }}

@@ -1,235 +1,554 @@
-@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+/* ======================================================
+          RESET E FONTES
+        ======================================================
+        */
+        :root {
+          /* Paleta Inspirada em Saúde e Confiança (Royal Blue) */
+          --primary: #2a64e7; /* Royal Blue (Cor Principal de Destaque) */
+          --secondary: #1d57d5; /* Royal Blue mais escuro para Hover/Ação */
+          --background: #F4F9F9; /* Fundo Suave Quase Branco */
+          --card-background: #FFFFFF; /* Fundo do Painel */
+          --text: #4A4A4A; /* Texto Escuro de Alto Contraste (Cinza mais suave) */
+          --focus-shadow: rgba(42, 100, 231, 0.3); /* Sombra para Foco, baseado no Primary */
+          --success: #4CAF50; /* Verde de Sucesso */
+          --danger: #E74C3C; /* Vermelho de Perigo/Erro */
+        
+          /* Tipografia */
+          --font-heading: 'Montserrat', sans-serif;
+          --font-body: 'Roboto Condensed', sans-serif;
+        }
+        
+        
+        body {
+          font-family: var(--font-body);
+          /* Degradê de Royal Blue para branco */
+          background: linear-gradient(135deg, #E0E7FC 0%, #FFFFFF 100%); 
+          color: var(--text);
+          margin: 0;
+          padding: 0;
+          line-height: 1.6;
+          min-height: 100vh; /* Garante que o degradê ocupe a altura total */
+        }
+        
+        /* ======================================================
+          LAYOUT PRINCIPAL
+        ======================================================
+        */
+        
+        header {
+          /* Cabeçalho branco com texto preto */
+          background: var(--card-background); /* Branco */
+          color: var(--text); /* Preto */
+          padding: 1rem 2rem; /* Ajustei o padding */
+          text-align: center;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+          display: flex; /* Para alinhar o título e o menu */
+          justify-content: space-between; /* Espaço entre o título e o menu */
+          align-items: center;
+          position: sticky; /* Para manter o cabeçalho no topo ao rolar */
+          top: 0;
+          z-index: 1000;
+        }
+        
+        header h1 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            /* Preto mais escuro para o nome SAM */
+            color: #1A1A1A; 
+        }
 
-:root {
-  --cor1: #0396A6;
-  --cor2: #04BFBF;
-  --cor3: #A7F2F2;
-  --cor4: #F2785C;
-  --cor5: #D94343;
-  --fundo: #f9ffff;
-  --texto: #033;
-}
+        /* ======================================================
+          MENU DE USUÁRIO (Novo)
+        ======================================================
+        */
+        
+        .user-menu-container {
+            position: relative;
+            /* Evita que o nome do usuário seja muito longo em telas pequenas */
+            max-width: 250px; 
+        }
 
+        /* User Info (a parte clicável) */
+        .user-info {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            user-select: none;
+        }
 
-body {
-  font-family: "Roboto Condensed", sans-serif;
-  background: var(--cor3);
-  color: var(--texto);
-  margin: 0;
-  padding: 0;
-}
+        .user-info:hover {
+            background: #f0f0f0;
+        }
 
-.login-body {
-    background: linear-gradient(135deg, var(--cor3) 0%, var(--cor2) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-}
+        .user-initials {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
 
-.login-container {
-    background-color: white;
-    width: 380px;
-    padding: 2rem 2.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    text-align: center;
-}
+        .user-name {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: #1A1A1A; /* Mesmo tom do SAM */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-.login-titulo {
-    color: var(--cor1);
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-    font-weight: 700;
-    font-family: "Montserrat", sans-serif;
-}
+        .dropdown-icon {
+            margin-left: 8px;
+            transform: rotate(0deg);
+            transition: transform 0.2s ease;
+        }
+        
+        /* Dropdown Menu (Conteúdo Colapsável) */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%; /* Posiciona logo abaixo do user-info */
+            right: 0;
+            margin-top: 10px; /* Espaço entre o info e o menu */
+            background: var(--card-background);
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            z-index: 1050; /* Acima do cabeçalho fixo */
+            min-width: 220px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+        }
 
-.campo-login {
-    margin-bottom: 1.2rem;
-    text-align: left;
-}
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
 
-.label-login {
-    color: var(--cor1);
-    font-weight: 600;
-    display: block;
-    margin-bottom: 0.3rem;
-    font-family: "Roboto Condensed", sans-serif;
-}
+        .user-info.active .dropdown-icon {
+            transform: rotate(180deg);
+        }
 
-.input-login {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 2px solid var(--cor3);
-    font-size: 1rem;
-    transition: 0.3s;
-    font-family: "Roboto Condensed", sans-serif;
-    color: var(--texto);
-    background-color: white;
-    box-sizing: border-box;
-}
+        .menu-details {
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+            color: #1A1A1A;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            white-space: nowrap;
+        }
 
-.input-login:focus {
-    border-color: var(--cor2);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(4,191,191,0.2);
-}
+        .menu-details.small-text {
+            font-size: 0.85rem;
+            color: var(--text);
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
 
-.btn-login {
-    width: 100%;
-    background-color: var(--cor2);
-    color: white;
-    border: none;
-    padding: 12px 0;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-    font-family: "Roboto Condensed", sans-serif;
-}
+        .menu-divider {
+            height: 1px;
+            background: #eee;
+            margin: 10px 0;
+        }
 
-.btn-login:hover {
-    background-color: var(--cor1);
-}
+        .btn-menu-logout {
+            width: 100%;
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 600;
+            transition: background 0.2s;
+        }
 
-.link-area {
-    margin-top: 1rem;
-}
+        .btn-menu-logout:hover {
+            background: #c0392b;
+        }
+        
+        /* ======================================================
+          OUTROS ESTILOS DE COMPONENTES
+        ======================================================
+        */
+        
+        .container {
+          /* Largura responsiva: usa 90% na tela, mas não ultrapassa 1200px (um pouco maior para os dois cards) */
+          width: 90%; 
+          max-width: 1200px;
+          margin: 40px auto;
+          display: flex;
+          flex-direction: column;
+          gap: 30px; 
+        }
 
-.link-cadastro {
-    color: var(--cor4);
-    font-weight: bold;
-    text-decoration: none;
-    transition: 0.3s;
-    font-family: "Roboto Condensed", sans-serif;
-}
+        /* NOVO ESTILO: Layout de 2 colunas */
+        .dual-panel-layout {
+            display: flex;
+            gap: 30px; /* Espaço entre os cards */
+            align-items: flex-start; /* Alinha os painéis no topo */
+        }
 
-.link-cadastro:hover {
-    color: var(--cor5);
-}
+        .dual-panel-layout .panel {
+            flex: 1; /* Faz com que cada painel ocupe 50% da largura disponível */
+            min-width: 0;
+        }
+        
+        /* ======================================================
+          ESTILO DOS PAINÉIS (Cards)
+        ======================================================
+        */
+        
+        .panel {
+          background: var(--card-background);
+          padding: 30px; /* Aumentei o padding */
+          border-radius: 12px; /* Cantos mais arredondados */
+          
+          /* Sombra moderna e suave */
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); 
+          
+          /* Borda azul finíssima de 2px ao redor (usando o novo Royal Blue) */
+          border: 2px solid rgba(42, 100, 231, 0.3);
+        }
+        
+        .panel h2 {
+          color: var(--primary);
+          margin-bottom: 20px;
+          font-family: var(--font-heading);
+          font-size: 1.5rem;
+          font-weight: 700;
+          border-bottom: 1px solid var(--background);
+          padding-bottom: 10px;
+        }
+        
+        /* ======================================================
+          FORMULÁRIOS E INPUTS
+        ======================================================
+        */
+        
+        .formulario .campo {
+          margin-bottom: 20px;
+        }
+        
+        /* Garante que os campos fiquem lado a lado em telas maiores, usando flexbox */
+        .campo-duplo {
+          display: flex;
+          gap: 20px;
+          margin-bottom: 20px;
+        }
 
+        .campo-duplo .campo:last-child {
+            margin-bottom: 0; /* Remove margem do último campo para não ter gap duplo */
+        }
+        
+        /* Garante que os campos dentro do campo-duplo ocupem o espaço corretamente */
+        .campo-duplo .campo {
+            flex: 1;
+            margin-bottom: 0; /* Remove a margem extra do campo interno */
+        }
+        
+        /* Estilos de Input (Consistência Garantida) */
+        .input {
+          width: 100%;
+          padding: 12px 15px; /* Aumentei o padding para melhor toque */
+          border-radius: 8px;
+          border: 1px solid #ccc; /* Borda mais suave para harmonizar */
+          outline: none;
+          font-family: var(--font-body);
+          font-size: 1rem;
+          color: var(--text);
+          background-color: var(--card-background);
+          
+          /* CORREÇÃO APLICADA: box-sizing */
+          box-sizing: border-box; 
+          transition: all 0.3s ease;
+        }
+        
+        .input:focus {
+          border-color: var(--secondary);
+          box-shadow: 0 0 0 3px var(--focus-shadow);
+        }
+        
+        /* ======================================================
+          BOTÕES
+        ======================================================
+        */
+        
+        .btn {
+          background: var(--primary);
+          color: white;
+          font-weight: 600;
+          padding: 12px 25px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background 0.2s ease, transform 0.1s ease;
+          font-family: var(--font-body);
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+        }
 
-header {
-  background: var(--cor1);
-  color: white;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 4px solid var(--cor2);
-}
+        .btn:not(:last-child) {
+            margin-bottom: 20px; /* Adiciona margem entre botões se houver mais de um */
+        }
+        
+        .btn:hover {
+          background: var(--secondary);
+          transform: translateY(-1px); /* Efeito de elevação sutil */
+        }
+        
+        .btn:active {
+          transform: translateY(0);
+        }
+        
+        /* ======================================================
+          RESULTADO E ALERTA
+        ======================================================
+        */
+        
+        .alert {
+          padding: 15px;
+          border-radius: 8px;
+          font-weight: 500;
+          font-family: var(--font-body);
+          margin-bottom: 20px;
+          border: 1px solid transparent;
+        }
+        
+        .alert.success {
+          background: #E8F5E9; 
+          color: var(--success);
+          border-color: #A5D6A7;
+        }
+        
+        .alert.danger {
+          background: #FFEBEE; 
+          color: var(--danger);
+          border-color: #EF9A9A;
+        }
+        
+        .resultado {
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0; /* Borda mais suave */
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .resultado .valor {
+          color: var(--primary); /* Royal Blue */
+          font-size: 2.2rem;
+          font-weight: bold;
+          font-family: var(--font-heading);
+          display: block;
+          margin-top: 5px;
+        }
+        
+        .resultado span {
+          font-size: 1.1rem;
+          color: var(--text);
+          font-family: var(--font-body);
+        }
+        
+        /* ======================================================
+          TABELA (FIXES E MODERNIZAÇÃO)
+        ======================================================
+        */
+        
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          /* Borda externa sutil para um visual mais limpo */
+          border: 1px solid #E0E0E0; 
+          border-radius: 8px;
+          overflow: hidden; 
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        table th {
+          background: var(--primary); /* Royal Blue */
+          color: white;
+          padding: 12px 15px; 
+          font-family: var(--font-heading);
+          text-align: left;
+          font-weight: 600;
+          text-transform: uppercase;
+          font-size: 0.9rem;
+        }
+        
+        table td {
+          border-bottom: 1px solid #E0E0E0; 
+          padding: 12px 15px;
+          font-family: var(--font-body);
+          color: var(--text);
+          vertical-align: top;
+        }
+        
+        table tr:last-child td {
+            border-bottom: none; 
+        }
+        
+        table tr:hover {
+          background: #F0FBFB; 
+        }
+        
+        /* ======================================================
+          RESPONSIVIDADE (MOBILE FIRST)
+        ======================================================
+        */
+        
+        @media (max-width: 1024px) {
+            /* Empilha os painéis lado a lado em telas menores */
+            .dual-panel-layout {
+                flex-direction: column; 
+                gap: 20px;
+            }
+        }
 
-.container {
-  max-width: 900px;
-  margin: 30px auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.panel {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(3, 150, 166, 0.2);
-  border-left: 6px solid var(--cor2);
-}
-
-.panel h2 {
-  color: var(--cor1);
-  margin-bottom: 15px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
-}
-
-.formulario .campo {
-  margin-bottom: 15px;
-}
-
-.campo-duplo {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.input {
-  width: 100%;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--cor2);
-  outline: none;
-  font-family: "Roboto Condensed", sans-serif;
-}
-
-.input:focus {
-  border-color: var(--cor1);
-  box-shadow: 0 0 5px var(--cor2);
-}
-
-.btn {
-  background: var(--cor2);
-  color: white;
-  font-weight: 600;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.2s;
-  font-family: "Roboto Condensed", sans-serif;
-}
-
-.btn:hover {
-  background: var(--cor1);
-}
-
-.alert {
-  padding: 12px;
-  border-radius: 8px;
-  font-weight: 500;
-  font-family: "Roboto Condensed", sans-serif;
-}
-
-.alert.success {
-  background: var(--cor3);
-  color: var(--texto);
-}
-
-.alert.danger {
-  background: var(--cor5);
-  color: white;
-}
-
-.resultado .valor {
-  font-size: 1.8rem;
-  color: var(--cor1);
-  font-weight: bold;
-  font-family: "Montserrat", sans-serif;
-}
-
-.resultado span {
-  font-size: 1rem;
-  color: var(--texto);
-  font-family: "Roboto Condensed", sans-serif;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table th {
-  background: var(--cor1);
-  color: white;
-  padding: 8px;
-  font-family: "Montserrat", sans-serif;
-}
-
-table td {
-  border-bottom: 1px solid #ccc;
-  padding: 8px;
-  font-family: "Roboto Condensed", sans-serif;
-}
-
-table tr:hover {
-  background: var(--cor3);
-}
+        @media (max-width: 600px) {
+          .container {
+            width: 95%;
+            margin: 20px auto;
+          }
+          
+          .panel {
+            padding: 20px;
+          }
+          
+          header h1 {
+              font-size: 1.5rem;
+          }
+        
+          .campo-duplo {
+            flex-direction: column; 
+            gap: 0;
+          }
+          
+          .campo-duplo .campo {
+              margin-bottom: 15px;
+          }
+        
+          .resultado .valor {
+              font-size: 1.8rem;
+          }
+          
+          table th, table td {
+              padding: 10px 8px;
+              font-size: 0.9rem;
+          }
+          
+          /* Esconde o nome do usuário em telas muito pequenas, mantendo apenas as iniciais */
+          .user-name {
+                display: none; 
+          }
+          .user-info {
+              padding: 5px;
+          }
+        }
+        
+        /* ======================================================
+          LOGIN (Estilos específicos, mantidos para referência)
+        ======================================================
+        */
+        .login-body {
+            /* Fundo de login também com degradê, usando Royal Blue */
+            background: linear-gradient(135deg, #CFE8FC 0%, #FFFFFF 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .login-container {
+            background-color: var(--card-background);
+            width: 350px; 
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+        
+        .login-titulo {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: var(--font-heading);
+        }
+        
+        /* O label-login não é mais exibido acima do campo, mas mantido para contexto */
+        .label-login { 
+            display: none; /* Esconder o label se ele for usado como placeholder */
+        }
+        
+        .input-login {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc; 
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+            color: var(--text);
+            background-color: var(--card-background);
+            box-sizing: border-box; 
+            line-height: 1;
+            vertical-align: middle;
+            margin-bottom: 20px; /* Espaçamento entre campos */
+        }
+        
+        .input-login:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--focus-shadow);
+        }
+        
+        .btn-login {
+            width: 100%;
+            background-color: var(--secondary); 
+            color: white;
+            border: none;
+            padding: 15px 0;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            font-family: var(--font-heading);
+            margin-top: 1rem;
+        }
+        
+        .btn-login:hover {
+            background-color: var(--primary);
+        }
+        
+        .link-area {
+            margin-top: 1.5rem;
+        }
+        
+        .link-cadastro {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+            font-family: var(--font-body);
+        }
+        
+        .link-cadastro:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }

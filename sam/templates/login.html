@@ -13,13 +13,11 @@
             {{ form.hidden_tag() }}
 
             <div class="campo-login">
-                {{ form.email.label(class="label-login") }}
-                {{ form.email(class="input-login") }}
+                {{ form.email(class="input-login", placeholder=form.email.label.text) }}
             </div>
 
             <div class="campo-login">
-                {{ form.senha.label(class="label-login") }}
-                {{ form.senha(class="input-login") }}
+                {{ form.senha(class="input-login", placeholder=form.senha.label.text) }}
             </div>
 
             <div class="campo-login botao-login">

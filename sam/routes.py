@@ -3,9 +3,7 @@ from sam import app, database, bcrypt
 from sam.models import Usuario, Medicamento, Historico, Paciente
 from flask_login import login_required, login_user, logout_user, current_user
 from sam.forms import FormLogin, FormCadastro, FormConversao
-from werkzeug.utils import secure_filename
 from sam.utils import converter_unidades, para_mg
-import os
 
 @app.route("/", methods=["GET", "POST"])
 def homepage():
@@ -83,3 +81,11 @@ def calculadora():
             historicos = Historico.query.filter_by(usuario_id=current_user.id).order_by(Historico.data_adm.desc()).all()
 
     return render_template("calculadora.html", form=form_calculadora, resultado=resultado, historicos = historicos)
+
+@app.route
+def logout():
+    logout_user
+    return redirect(url_for("login"))
+
+
+
