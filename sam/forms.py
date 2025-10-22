@@ -1,8 +1,10 @@
 # Cria os formulários do site
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FileField, FloatField, SelectField, DateField, IntegerField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, FileField, FloatField, SelectField, DateField, IntegerField, TextAreaField, EmailField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError, Regexp
 from sam.models import Usuario, Paciente
+
+Email.default_message = "Por favor digite um e-mail válido"
 
 class FormLogin(FlaskForm):
     email = StringField("E-mail", validators=[DataRequired(), Email()])
@@ -10,7 +12,7 @@ class FormLogin(FlaskForm):
     botao_confirmacao = SubmitField("Fazer login")
 
 class FormCadastro(FlaskForm):
-    email = StringField("E-mail", validators=[DataRequired(), Email()])
+    email = StringField("E-mail", validators=[DataRequired(), Email(message='Por favor digite um e-mail válido')])
     nome = StringField("Nome completo", validators=[DataRequired()])
     senha = PasswordField("Senha", validators=[DataRequired(), Length(6, 20)])
     confirmacao_senha = PasswordField("Confirme sua senha", validators=[DataRequired(), EqualTo("senha", message="As senhas não coincidem")])

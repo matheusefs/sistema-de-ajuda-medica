@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, flash
+from flask import render_template, url_for, redirect, flash, request
 from sqlalchemy.exc import IntegrityError
 from sam import app, database, bcrypt
 from sam.models import Usuario, Medicamento, Historico, Paciente
@@ -16,6 +16,10 @@ def homepage():
             return redirect(url_for("calculadora", id_usuario=usuario.id))
         else:
             flash("Email ou senha inválidos. Por favor, tente novamente.", "danger")
+    elif request.method == "POST":
+        for campo, erros in form_login.errors.items():
+            for erro in erros:
+                flash("Formato de e-mail inválido", "danger")
     return render_template("login.html", form=form_login)
 
 
