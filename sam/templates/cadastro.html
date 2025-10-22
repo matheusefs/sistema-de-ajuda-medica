@@ -14,27 +14,30 @@
             {{ form.hidden_tag() }}
 
             <div class="campo-login">
-                {{ form.nome.label(class="label-login") }}
-                {{ form.nome(class="input-login") }}
+                {{ form.nome(class="input-login", placeholder="Nome completo") }}
             </div>
 
             <div class="campo-login">
-                {{ form.email.label(class="label-login") }}
-                {{ form.email(class="input-login") }}
+                {{ form.email(class="input-login", placeholder="E-mail") }}
             </div>
 
             <div class="campo-login">
-                {{ form.senha.label(class="label-login") }}
-                {{ form.senha(class="input-login") }}
+                {{ form.senha(class="input-login", placeholder="Senha") }}
             </div>
 
             <div class="campo-login">
-                {{ form.confirmacao_senha.label(class="label-login") }}
-                {{ form.confirmacao_senha(class="input-login") }}
+                {{ form.confirmacao_senha(class="input-login", placeholder="Confirme sua senha") }}
             </div>
 
             <div class="campo-login botao-login">
                 {{ form.botao_confirmacao(class="btn-login") }}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
             </div>
         </form>
 

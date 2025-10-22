@@ -14,12 +14,21 @@ class Usuario(database.Model, UserMixin):
 
 class Paciente(database.Model):
     id = database.Column(database.Integer, primary_key=True)
-    nome = database.Column(database.String, nullable=False)
-    cpf = database.Column(database.String(14), nullable=False, unique=True)
+    nome = database.Column(database.String(100), nullable=False)  # Nome do paciente
+    data_nascimento = database.Column(database.Date, nullable=False)  # Data de nascimento
+    cpf = database.Column(database.String(14), nullable=False, unique=True)  # CPF formatado
+    observacoes = database.Column(database.Text, nullable=True)  # Observações médicas
+
+    def __repr__(self):
+        return f"<Paciente {self.nome} - CPF: {self.cpf}>"
 
 class Medicamento(database.Model):
-    id = database.Column(database.Integer, primary_key = True)
-    nome = database.Column(database.String, nullable = False)
+    id = database.Column(database.Integer, primary_key=True)
+    nome = database.Column(database.String(100), nullable=False, unique=True)  # Nome único do medicamento
+    observacoes = database.Column(database.Text, nullable=True)  # Observações adicionais (opcional)
+
+    def __repr__(self):
+        return f"<Medicamento {self.nome}>"
 
 class Historico(database.Model):
     id = database.Column(database.Integer, primary_key=True)

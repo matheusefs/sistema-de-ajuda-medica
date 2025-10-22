@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Medicamento</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>SAM</h1>
+        <div class="header-buttons">
+        <a href="{{ url_for('calculadora')}}" class="header-btn">Administração de medicamentos</a>
+        <a href="{{ url_for('novo_paciente') }}" class="header-btn">Adicionar Paciente</a>
+        <a href="{{ url_for('adicionar_medicamento') }}" class="header-btn">Adicionar Medicamento</a>
+        <a href="{{ url_for('logout') }}" class="header-logout-link">Sair</a>
+    </div>
+    </header>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="panel">
+            <h2>Adicionar medicamento</h2>
+            <form method="POST" class="formulario">
+                {{ form.hidden_tag() }}
+                <div class="campo">
+                    {{ form.nome.label }}<br>
+                    {{ form.nome(class="input") }}
+                </div>
+                <div class="campo">
+                    {{ form.observacoes.label }}<br>
+                    {{ form.observacoes(class="input") }}
+                </div>
+                <div class="botao">
+                    {{ form.botao_confirmacao(class="btn") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

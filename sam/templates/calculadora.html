@@ -1,36 +1,44 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversão de Doses</title>
+    <title>SAM - Conversão e Administração de Medicamentos</title>
+
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <header>
-        <h1>SAM</h1>
-    </header>
+    <h1>SAM</h1>
+    <div class="header-buttons">
+        <a href="{{ url_for('calculadora')}}" class="header-btn">Administração de medicamentos</a>
+        <a href="{{ url_for('novo_paciente') }}" class="header-btn">Adicionar Paciente</a>
+        <a href="{{ url_for('adicionar_medicamento') }}" class="header-btn">Adicionar Medicamento</a>
+        <a href="{{ url_for('logout') }}" class="header-logout-link">Sair</a>
+    </div>
+</header>
 
-    <h2 class="campo">
-        <a href="{{ url_for('homepage') }}">LOGOUT</a></h2>
-    <main class="container">
-        
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-            <div class="alert {{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
 
-        
-        <section class="panel">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+
+        <!-- Painel 1: Conversão -->
+        <div class="panel">
             <h2>Conversão de Dosagem</h2>
             <form method="POST" class="formulario">
                 {{ form.hidden_tag() }}
 
                 <div class="campo">
-                    {{ form.valor(class="input", placeholder=form.valor.label.text) }}
+                    {{ form.valor.label }}<br>
+                    {{ form.valor(class="input", placeholder="Valor a ser convertido") }}
                 </div>
 
                 <div class="campo-duplo">
@@ -43,11 +51,7 @@
                         {{ form.unidade_destino(class="input") }}
                     </div>
                 </div>
-                
-                <div class="resultado">
-                    <span>Resultado da Conversão</span>
-                    
-                </div>
+
                 <div class="campo">
                     {{ form.id_paciente.label }}<br>
                     {{ form.id_paciente(class="input") }}
@@ -58,14 +62,15 @@
                     {{ form.id_medicamento(class="input") }}
                 </div>
 
-                <div class="campo">
-                    {{ form.data_adm.label }}<br>
-                    {{ form.data_adm(class="input") }}
-                </div>
-
-                <div class="campo">
-                    {{ form.lote.label }}<br>
-                    {{ form.lote(class="input") }}
+                <div class="campo-duplo">
+                    <div class="campo">
+                        {{ form.data_adm.label }}<br>
+                        {{ form.data_adm(class="input") }}
+                    </div>
+                    <div class="campo">
+                        {{ form.lote.label }}<br>
+                        {{ form.lote(class="input", placeholder="Lote do medicamento") }}
+                    </div>
                 </div>
 
                 <div class="campo">
@@ -77,19 +82,21 @@
                     {{ form.botao_confirmacao(class="btn") }}
                 </div>
             </form>
-        </section>
+        </div>
 
-        
-        {% if resultado %}
-        <section class="panel resultado">
+        <!-- Painel 2: Resultado -->
+        <div class="panel resultado">
             <h2>Resultado da Conversão</h2>
-            <p class="valor">{{ resultado }} <span>({{ form.unidade_destino.data }})</span></p>
-        </section>
-        {% endif %}
+            {% if resultado %}
+                <p class="valor">{{ resultado }} <span>({{ form.unidade_destino.data }})</span></p>
+            {% else %}
+                <p></p>
+            {% endif %}
+        </div>
 
-        
-        <section class="panel historico">
-            <h2>Histórico de Conversões</h2>
+        <!-- Painel 3: Histórico -->
+        <div class="panel historico">
+            <h2>Histórico de Administrações</h2>
             {% if historicos %}
             <table>
                 <thead>
@@ -118,8 +125,7 @@
             {% else %}
             <p>Nenhuma conversão realizada ainda.</p>
             {% endif %}
-        </section>
-
-    </main>
+        </div>
+    </div>
 </body>
 </html>
